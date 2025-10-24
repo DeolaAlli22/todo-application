@@ -1,16 +1,16 @@
-"use client"
+'use client';
 
-import { useEffect, useState, useCallback } from "react"
+import { useEffect, useState, useCallback } from 'react';
 
 export function useWebSocket() {
-   const [isConnected, setIsConnected] = useState(false)
-   const [ws, setWs] = useState<WebSocket | null>(null)
+  const [isConnected, setIsConnected] = useState(false);
+  const [ws, _setWs] = useState<WebSocket | null>(null);
 
-   useEffect(() => {
-      setIsConnected(true)
+  useEffect(() => {
+    setIsConnected(true);
 
-      // Uncomment below to connect to a real WebSocket server
-      /*
+    // Uncomment below to connect to a real WebSocket server
+    /*
       const websocket = new WebSocket('ws://your-server.com/socket')
       
       websocket.onopen = () => setIsConnected(true)
@@ -23,16 +23,16 @@ export function useWebSocket() {
         websocket.close()
       }
       */
-   }, [])
+  }, []);
 
-   const sendMessage = useCallback(
-      (message: string) => {
-         if (ws && isConnected) {
-            ws.send(JSON.stringify({ type: "message", data: message }))
-         }
-      },
-      [ws, isConnected],
-   )
+  const sendMessage = useCallback(
+    (message: string) => {
+      if (ws && isConnected) {
+        ws.send(JSON.stringify({ type: 'message', data: message }));
+      }
+    },
+    [ws, isConnected]
+  );
 
-   return { isConnected, sendMessage }
+  return { isConnected, sendMessage };
 }
